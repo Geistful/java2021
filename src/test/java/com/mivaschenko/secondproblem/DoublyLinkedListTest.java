@@ -49,9 +49,9 @@ public class DoublyLinkedListTest {
     public void addAtIndexTest() {
         DoublyLinkedList<Integer> testList = new DoublyLinkedList<>();
         testList.add(0, 0);
-        assertEquals(testList.last.item, 0);
+        assertEquals(testList.get(0), 0);
         testList.add(0, 0);
-        assertEquals(testList.first.item, 0);
+        assertEquals(testList.get(0), 0);
         try {
             nonEmptyList.add(-1, 2);
         }

@@ -5,26 +5,14 @@ import java.util.*;
 import java.util.function.UnaryOperator;
 
 public class DoublyLinkedList<E> implements List<E> {
-    int size;
-    Node<E> first;
-    Node<E> last;
+    private int size;
+    private Node<E> first;
+    private Node<E> last;
 
     public DoublyLinkedList() {
         size = 0;
         first = null;
         last = null;
-    }
-
-    public static class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
-
-        Node(DoublyLinkedList.Node<E> prev, E element, DoublyLinkedList.Node<E> next) {
-            this.item = element;
-            this.next = next;
-            this.prev = prev;
-        }
     }
 
     @Override
@@ -38,8 +26,9 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     public boolean contains(Object elem) {
-        if (first == null || elem==null)
+        if (first == null || elem==null) {
             return false;
+        }
         Node<E> iterator = first;
         while (iterator.next != null) {
             iterator = iterator.next;
@@ -113,7 +102,31 @@ public class DoublyLinkedList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        throw new UnsupportedOperationException();
+        int pointer = 0;
+        if (index > size || index < 0)
+            try {
+                throw new IOException("Invalid Index!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        else if (index == size) {
+            return last.item;
+        }
+        else if (index == 0) {
+            return first.item;
+        }
+        else {
+            pointer++;
+            Node<E> iterator = first;
+            while (iterator.next != null) {
+                iterator = iterator.next;
+                if (pointer == index) {
+                    return iterator.item;
+                }
+                pointer++;
+            }
+        }
+        return null;
     }
 
     @Override

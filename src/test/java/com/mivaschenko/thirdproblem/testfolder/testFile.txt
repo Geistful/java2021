@@ -1,0 +1,2 @@
+| File: .\src\test\java\com\mivaschenko\thirdproblem\testfolder\testFile.txt
+|-> Folder: .\src\test\java\com\mivaschenko\thirdproblem\testfolder\testsecondfolder

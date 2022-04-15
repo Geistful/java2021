@@ -51,7 +51,7 @@ public class MultithreadedTangentTest {
     public void checkCalculateMethod(){
         try {
             assertEquals(proc.calculate(1),
-                    "1 numbers were processed\nval = 2.44582; tan(val) = "+Math.tan(2.44582)+"\n");
+                    "1 numbers were processed\nval = 2.44582; tan(val) = "+Math.tan(2.44582));
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }

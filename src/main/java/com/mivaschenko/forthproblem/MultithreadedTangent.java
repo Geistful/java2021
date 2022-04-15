@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MultithreadedTangent {
     final ArrayList<Double> array = new ArrayList<>();
@@ -23,12 +25,14 @@ public class MultithreadedTangent {
         ExecutorService executor = Executors.newFixedThreadPool(10);
         StringBuilder buffer = new StringBuilder();
         buffer.append(Math.min(upperBound, array.size())).append(" numbers were processed\n");
-        for (int i=0; (i<array.size())&&(i<upperBound); i++) {
+        List<CompletableFuture<String>> list = new ArrayList<>();
+        for (int i = 0; (i < array.size()) && (i < upperBound); i++) {
             Double element = array.get(i);
-            final Future<Double> future = executor.submit(() -> Math.tan(element));
-            buffer.append("val = ").append(element.toString())
-                    .append("; tan(val) = ").append(future.get().toString()).append("\n");
+            list.add(CompletableFuture.supplyAsync(() -> "val = "+element+"; tan(val) = "+Math.tan(element), executor));
         }
+        CompletableFuture<String>[] a = new CompletableFuture[0];
+        String result = Stream.of(list.toArray(a)).map(CompletableFuture::join).collect(Collectors.joining("\n"));
+        buffer.append(result);
         executor.shutdown();
         return buffer.toString();
     }
